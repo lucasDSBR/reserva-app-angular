@@ -1,0 +1,25 @@
+.user-img {
+    width: 2.5rem;
+    border-radius: 100%;
+    margin: 5px;
+}
+.user-nome {
+    font-size: 12pt;
+}
+
+.card-menu{
+    height: 120px;
+    width: 120px;
+    margin: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.content-menu{
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+}
