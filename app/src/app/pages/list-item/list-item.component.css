@@ -1,0 +1,17 @@
+.card-menu-content {
+    display: flex;
+}
+.descriptions-butons-btn-remove {
+    background-color: #E00028;
+    width: 20px;
+    height: 20px;
+}
+.descriptions-butons-btn-add{
+    background-color: #2C922A;
+    width: 20px;
+    height: 20px;
+}
+.descriptions{
+    display: flex;
+    align-items: center;
+}
