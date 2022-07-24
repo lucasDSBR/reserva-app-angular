@@ -3,15 +3,33 @@
 }
 .descriptions-butons-btn-remove {
     background-color: #E00028;
-    width: 20px;
-    height: 20px;
+    width: 25px;
+    height: 25px;
+    border-radius: 20px;
 }
 .descriptions-butons-btn-add{
     background-color: #2C922A;
-    width: 20px;
-    height: 20px;
+    width: 25px;
+    height: 25px;
+    border-radius: 20px;
 }
 .descriptions{
     display: flex;
     align-items: center;
+    
+}
+.descriptions-butons{
+    display: flex;
+    margin: 5px;
+}
+.descriptions-price {
+    font-size: 20pt;
+    margin: 5px;
+}
+.descriptions-butons span {
+    margin: 5px;
+    font-size: 15pt;
+}
+.card-menu{
+    margin: 4px;
 }
