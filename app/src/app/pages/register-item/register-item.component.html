@@ -1,1 +1,36 @@
-<p>register-item works!</p>
+<form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
+    <div class="content-photos">
+        <mat-card class="content-photos-card">
+            <img mat-card-sm-image src="../../../assets/svg/add_a_photo.svg" fill="#3d3d3d" width="15px" class="content-photos-card-addPhoto">
+        </mat-card>
+        <mat-card class="content-photos-card">
+            <img mat-card-sm-image src="../../../assets/svg/add.svg" width="25px" class="descriptions-butons-btn-add">
+        </mat-card>
+    </div>   
+    <mat-grid-list cols="2" rowHeight="2:1">
+        <mat-form-field appearance="fill" class="input-full-width">
+            <mat-label>Marca</mat-label>
+            <input matInput formControlName="mark">
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="input-full-width">
+            <mat-label>Descrição</mat-label>
+            <input matInput formControlName="description">
+        </mat-form-field>
+        <mat-grid-list cols="2" rowHeight="2:2">
+            <div class="grid-price-fee"><mat-form-field appearance="fill" class="input-small-width">
+                <mat-label>Preço</mat-label>
+                <input matInput formControlName="price">
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="input-small-width">
+                <mat-label>Taxa de entrega</mat-label>
+                <input matInput formControlName="price">
+            </mat-form-field>
+        </div>
+        </mat-grid-list>
+    </mat-grid-list>
+    <div class="content-buttons">
+        <button mat-raised-button style="background-color: #2C922A; color: #FFFF; width: 60%; margin: 5px;">Registrar</button>
+        <button mat-raised-button style="background-color: #E00028; color: #FFFF; width: 60%; margin: 5px;">Cancelar/Voltar</button>
+    </div>
+  
+</form>
