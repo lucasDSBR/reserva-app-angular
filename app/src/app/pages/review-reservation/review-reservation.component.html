@@ -1,0 +1,111 @@
+<h2>Revisar pedido</h2>
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8" *ngIf="!finalitReservation">
+    <!--- Note that these columns can be defined in any order.
+            The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="Item">
+        <th mat-header-cell *matHeaderCellDef> Item </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="Qt selecionada">
+        <th mat-header-cell *matHeaderCellDef> Qt selecionada </th>
+        <td mat-cell *matCellDef="let element"> {{element.amountDemanded}} </td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="Valor Unit.">
+        <th mat-header-cell *matHeaderCellDef> Valor Unit. </th>
+        <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Total">
+        <th mat-header-cell *matHeaderCellDef> Total R$ </th>
+        <td mat-cell *matCellDef="let element"> {{element.price * element.amountDemanded}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+<h2>Total a pagar: R${{viewPriceTotal()}}</h2>
+
+<mat-stepper orientation="vertical" #stepper *ngIf="finalitReservation">
+    <mat-step [stepControl]="firstFormGroup">
+        <form [formGroup]="firstFormGroup">
+        <ng-template matStepLabel>Meio de pagamento: {{firstFormGroup.value.tipePayment == 1 ? 'Cartão de crédito' : firstFormGroup.value.tipePayment == 2 ? 'Dinheiro' : firstFormGroup.value.tipePayment == 3 ? 'Pix' : ''}}</ng-template>
+        <mat-radio-group aria-label="Select an option" class="radio-group" formControlName="tipePayment" required>
+            <mat-radio-button value="1">Cartão de crédito</mat-radio-button>
+            <mat-radio-button value="2">Dinheiro</mat-radio-button>
+            <mat-radio-button value="3">Pix</mat-radio-button>
+        </mat-radio-group>
+        <div *ngIf="firstFormGroup.value.tipePayment == 1">
+            <h4>Selecione a bandeira do cartão:</h4>
+            <mat-form-field appearance="fill">
+                <mat-label>Bandeira</mat-label>
+                <mat-select  formControlName="flagCardPayment">
+                    <mat-option *ngFor="let flag of flagCards" [value]="flag.value">
+                    {{flag.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div>
+            <button mat-button matStepperNext>Próximo</button>
+        </div>
+        </form>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup">
+        <form [formGroup]="secondFormGroup">
+        <ng-template matStepLabel>Modo de entrega: {{secondFormGroup.value.deliveryMethod == 1 ? 'Retirada no local' : secondFormGroup.value.deliveryMethod == 2 ? 'Entrega em estabelecimento' : ''}}</ng-template>
+        <mat-radio-group aria-label="Select an option" class="radio-group" formControlName="deliveryMethod">
+            <mat-radio-button value="1">Retirada no local</mat-radio-button>
+            <mat-radio-button value="2">Entrega em estabelecimento</mat-radio-button>
+        </mat-radio-group>
+        <div *ngIf="secondFormGroup.value.deliveryMethod == 2">
+            <h4>Informe seu endereço:</h4>
+            <mat-form-field appearance="fill">
+                <mat-label>Rua:</mat-label>
+                <input matInput formControlName="address" style="width: 100%;">
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Número:</mat-label>
+                <input matInput formControlName="addressNumber" type="number" style="width: 100%;">
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Bairro:</mat-label>
+                <input matInput formControlName="aeighborhood" style="width: 100%;">
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Complemento:</mat-label>
+                <input matInput style="width: 100%;">
+            </mat-form-field>
+        </div>
+        <div>
+            <button mat-button matStepperPrevious>Voltar</button>
+            <button mat-button matStepperNext>Próximo</button>
+        </div>
+        </form>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>Revisar dados e concluir pedido</ng-template>
+        <p><b>Modo de pagamento:</b> {{firstFormGroup.value.tipePayment == 1 ? 'Cartão de crédito' : firstFormGroup.value.tipePayment == 2 ? 'Dinheiro' : firstFormGroup.value.tipePayment == 3 ? 'Pix' : ''}}</p>
+        <p><b>Modo de entrega:</b> {{secondFormGroup.value.deliveryMethod == 1 ? 'Retirada no local' : secondFormGroup.value.deliveryMethod == 2 ? 'Entrega em estabelecimento' : ''}}</p>
+        <ul *ngIf="secondFormGroup.value.deliveryMethod == 2">
+            <li><b>Rua: </b> {{secondFormGroup.value.address}}</li>
+            <li><b>Número: </b> {{secondFormGroup.value.addressNumber}}</li>
+            <li><b>Bairro: </b> {{secondFormGroup.value.aeighborhood}}</li>
+        </ul>
+        <p><b>Valor total:</b>R${{viewPriceTotal()}}</p>
+        <div style="display: flex;flex-direction: row;align-items: center;justify-content: center;">
+            <button mat-button style="background-color: #E00028; color: #FFFF; margin: 5px;" routerLink="/listItens">Cancelar</button>
+            <button mat-button style="background-color: #2C922A; color: #FFFF; margin: 5px;" (click)="stepper.reset()">Finalizar</button>
+        </div>
+    </mat-step>
+</mat-stepper>
+  
+<div class="content-buttons" *ngIf="!finalitReservation">
+    <button mat-button (click)="finalitReservation = !finalitReservation" style="background-color: #2C922A; color: #FFFF; width: 60%; margin: 5px;">Finalizar pedido</button>
+    <button mat-button routerLink="/listItens" style="background-color: #1E40AF; color: #FFFF; width: 60%; margin: 5px;">Continuar comprando</button>
+</div>

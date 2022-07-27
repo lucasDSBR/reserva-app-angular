@@ -1,0 +1,15 @@
+<h1 mat-dialog-title>{{data.name}}</h1>
+<div mat-dialog-content>
+    <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px">
+        <img mat-card-sm-image src="../../../assets/images/cerveja.png" width="80px" height="80px">
+    </div>
+    <div>
+        <p>Descrição: {{data.description}}</p>
+        <p>Total em estoque: {{data.amount}}</p>
+        <p>Preço: {{data.price}}</p>
+        <p>Taxa de entrega: {{data.fee == true ? 'SIM, valor: '+data.valueFee : 'NÃO'}}</p>
+    </div>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Ok</button>
+</div>

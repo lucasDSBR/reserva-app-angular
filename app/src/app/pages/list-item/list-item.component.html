@@ -1,19 +1,30 @@
-<mat-card class="card-menu">
-    <mat-card-content class="card-menu-content">
-        <img mat-card-sm-image src="../../../assets/images/cerveja.png" width="30px" height="30px">
-        <div class="descriptions">
-            <div class="descriptions-name">
-                <p class="descriptions-name-title">Heineken</p>
-                <p class="descriptions-name-total">Total em estoque: 10</p>
-            </div>
-            <div class="descriptions-price">
-                10,00
-            </div>
-            <div class="descriptions-butons">
-                <img mat-card-sm-image src="../../../assets/svg/remove.svg" width="25px" class="descriptions-butons-btn-remove">
-                <span>0</span>
-                <img mat-card-sm-image src="../../../assets/svg/add.svg" width="25px" class="descriptions-butons-btn-add">
-            </div>
-        </div>
-    </mat-card-content>
-</mat-card>
+
+<div class="content-itens">
+    <div *ngFor="let item of arrayItens">
+        <mat-card class="card-menu">
+            <mat-card-content class="card-menu-content">
+                <img mat-card-sm-image src="../../../assets/images/cerveja.png" width="30px" height="30px" (click)="detailItem(item)">
+                <div class="descriptions">
+                    <div class="descriptions-name">
+                        <p class="descriptions-name-title">{{item.name}}</p>
+                        <p class="descriptions-name-total">Total em estoque: {{item.amount}}</p>
+                    </div>
+                    <div class="descriptions-price">
+                        {{item.price}}
+                    </div>
+                    <div class="descriptions-butons">
+                        <img mat-card-sm-image src="../../../assets/svg/remove.svg" width="25px" class="descriptions-butons-btn-remove" (click)="addItem(item, -1)">
+                        <span>{{viewQuantity(item)}}</span>
+                        <img mat-card-sm-image src="../../../assets/svg/add.svg" width="25px" class="descriptions-butons-btn-add" (click)="item.amount == viewQuantity(item) ? null : addItem(item, 1)">
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>
+<div class="content-totalPayment">
+    Total: R$<span class="total-payment">{{viewPriceTotal()}}</span>
+</div>
+<div class="content-buttons">
+    <button mat-raised-button style="background-color: #2C922A; color: #FFFF; width: 60%; margin: 5px;" (click)="navigateReview();">Revisar pedido</button>
+</div>
