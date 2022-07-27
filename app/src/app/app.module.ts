@@ -15,12 +15,25 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import {MatIconModule} from '@angular/material/icon';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatButtonModule} from '@angular/material/button';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatRippleModule} from '@angular/material/core';
+import {MatSelectModule} from '@angular/material/select';
+import { LoginComponent } from './pages/login/login.component';
+import { MainMenuComponent } from './pages/main-menu/main-menu.component';
+import { ReviewReservationComponent } from './pages/review-reservation/review-reservation.component';
+import {MatTableModule} from '@angular/material/table';
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatRadioModule} from '@angular/material/radio';
+
 @NgModule({
   declarations: [
     AppComponent,
     RegisterItemComponent,
     ListItemComponent,
     ReservationsItemComponent,
+    LoginComponent,
+    MainMenuComponent,
+    ReviewReservationComponent,
     
   ],
   imports: [
@@ -35,7 +48,13 @@ import {MatButtonModule} from '@angular/material/button';
     MatInputModule,
     MatIconModule,
     MatGridListModule,
-    MatButtonModule
+    MatButtonModule,
+    MatDialogModule,
+    MatRippleModule,
+    MatSelectModule,
+    MatTableModule,
+    MatStepperModule,
+    MatRadioModule  
   ],
   providers: [],
   bootstrap: [AppComponent]

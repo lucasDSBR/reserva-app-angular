@@ -1,26 +1,6 @@
 <mat-toolbar>
-    <img src="../assets/images/img.jpeg" class="user-img">
-    <span class="user-nome">Welligton Bebidas</span>
+    <img src="../assets/images/img.jpeg" class="user-img" routerLink="/">
+    <span class="user-nome" routerLink="/">Welligton Bebidas</span>
 </mat-toolbar>
-<!-- 
-<div class="content-menu">
-    <mat-card class="card-menu">
-        <mat-card-content>
-            <p>Cadastrar bebidas</p>
-        </mat-card-content>
-    </mat-card>
-    <mat-card class="card-menu">
-        <mat-card-content>
-            <p>Lista de bebidas</p>
-        </mat-card-content>
-    </mat-card>
-    <mat-card class="card-menu">
-        <mat-card-content>
-            <p>Reservas</p>
-        </mat-card-content>
-    </mat-card>
-</div>
-<app-list-item></app-list-item> -->
 
-<!-- <app-register-item></app-register-item> -->
-<app-reservations-item></app-reservations-item>
+<router-outlet></router-outlet>
