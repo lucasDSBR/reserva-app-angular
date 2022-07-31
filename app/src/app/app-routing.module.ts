@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { DetailReservationComponent } from './pages/detail-reservation/detail-reservation.component';
 import { ListItemComponent } from './pages/list-item/list-item.component';
 import { LoginComponent } from './pages/login/login.component';
 import { MainMenuComponent } from './pages/main-menu/main-menu.component';
@@ -13,7 +14,8 @@ const routes: Routes = [
   { path: 'listItens', component: ListItemComponent },
   { path: 'registerItens', component: RegisterItemComponent },
   { path: 'reservations', component: ReservationsItemComponent },
-  { path: 'reviewReservation', component: ReviewReservationComponent }
+  { path: 'reviewReservation', component: ReviewReservationComponent },
+  { path: 'detailReservation', component: DetailReservationComponent }
 ];
 
 @NgModule({

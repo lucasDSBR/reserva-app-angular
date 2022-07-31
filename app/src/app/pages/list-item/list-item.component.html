@@ -3,7 +3,7 @@
     <div *ngFor="let item of arrayItens">
         <mat-card class="card-menu">
             <mat-card-content class="card-menu-content">
-                <img mat-card-sm-image src="../../../assets/images/cerveja.png" width="30px" height="30px" (click)="detailItem(item)">
+                <img mat-card-sm-image src="http://localhost:5000{{item.pathPhoto}}" width="30px" height="30px" (click)="detailItem(item)">
                 <div class="descriptions">
                     <div class="descriptions-name">
                         <p class="descriptions-name-title">{{item.name}}</p>
@@ -25,6 +25,6 @@
 <div class="content-totalPayment">
     Total: R$<span class="total-payment">{{viewPriceTotal()}}</span>
 </div>
-<div class="content-buttons">
-    <button mat-raised-button style="background-color: #2C922A; color: #FFFF; width: 60%; margin: 5px;" (click)="navigateReview();">Revisar pedido</button>
+<div class="content-buttons" *ngIf="!(itensReservation.length == 0)">
+    <button mat-raised-button style="background-color: #2C922A; color: #FFFF; width: 60%; margin: 5px;" (click)="navigateReview();" >Revisar pedido</button>
 </div>

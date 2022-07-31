@@ -13,6 +13,7 @@ import { DialogSuccess } from 'src/app/components/dialog-success/dialog-success.
 })
 export class RegisterItemComponent implements OnInit {
   HasFee = false;
+  fileToUpload: File | null = null;
   constructor(
     public dialog: MatDialog,
     private formBuilder: FormBuilder
@@ -30,8 +31,10 @@ export class RegisterItemComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  handleFileInput(dataFiles: any) {
+    this.fileToUpload = dataFiles.target.files.item(0);
+  }
   onSubmit(): void {
-    
     if(this.checkoutForm.value.mark == null || this.checkoutForm.value.description == null || this.checkoutForm.value.price == null){
       
       this.dialog.open(DialogErro, {
@@ -40,6 +43,8 @@ export class RegisterItemComponent implements OnInit {
         },
       });
     }else {
+      const formData: FormData = new FormData();
+      
       let seletor = new ItemSelector;
       seletor.name = this.checkoutForm.value.mark;
       seletor.description = this.checkoutForm.value.description;
@@ -47,14 +52,11 @@ export class RegisterItemComponent implements OnInit {
       seletor.valueFee = this.checkoutForm.value.fee;
       seletor.price = this.checkoutForm.value.price;
       seletor.amount = this.checkoutForm.value.amount;
-
+      formData.append('photo', this.fileToUpload? this.fileToUpload: '');
+      formData.append('Item', JSON.stringify(seletor));
       const settings = {
         method: 'POST',
-        headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(seletor)
+        body: formData
       };
       POST('Item', settings).then(e => {
         if(e.response.status == 201){

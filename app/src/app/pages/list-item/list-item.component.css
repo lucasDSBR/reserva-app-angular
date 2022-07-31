@@ -1,5 +1,7 @@
 .card-menu-content {
     display: flex;
+    flex-direction: row;
+    justify-content: space-around;
 }
 .descriptions-butons-btn-remove {
     background-color: #E00028;
@@ -16,7 +18,12 @@
 .descriptions{
     display: flex;
     align-items: center;
-    
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.descriptions-name{
+    width: 50%;
 }
 .descriptions-butons{
     display: flex;

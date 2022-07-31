@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {FormBuilder, Validators} from '@angular/forms';
+import { POST } from 'src/app/service/ItemFetch';
+import { ReservationSelector } from 'src/app/seletors/Reservation.selector';
+import { DialogSuccess } from 'src/app/components/dialog-success/dialog-success.component';
+import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-review-reservation',
@@ -10,14 +14,16 @@ import {FormBuilder, Validators} from '@angular/forms';
 export class ReviewReservationComponent implements OnInit {
   value = 'Clear me';
   firstFormGroup = this._formBuilder.group({
-    tipePayment: ['', Validators.required],
-    flagCardPayment: ['']
+    tipePayment: [null, Validators.required],
+    flagCardPayment: [null]
   });
   secondFormGroup = this._formBuilder.group({
-    deliveryMethod: ['', Validators.required],
-    address: [''],
-    addressNumber: [''],
-    aeighborhood: [''],
+    deliveryMethod: [null, Validators.required],
+    address: [null],
+    addressNumber: [null],
+    aeighborhood: [null],
+    nameClient: [null],
+    phoneNumberClient: [null]
   });
   finalitReservation = false;
   dataSource  = [];
@@ -30,6 +36,7 @@ export class ReviewReservationComponent implements OnInit {
   constructor(
     private _formBuilder: FormBuilder,
     public router: Router,
+    public dialog: MatDialog,
     public activatedRoute: ActivatedRoute
   ) { 
   }
@@ -55,5 +62,37 @@ export class ReviewReservationComponent implements OnInit {
   }
   viewData(){
     console.log(this.firstFormGroup)
+  }
+
+  finalityReservation(){
+    let seletor = new ReservationSelector;
+    seletor.itens = this.dataSource;
+    seletor.tipePayment = this.firstFormGroup.value.tipePayment;
+    seletor.flagCardPayment = this.firstFormGroup.value.flagCardPayment;
+    seletor.deliveryMethod = this.secondFormGroup.value.deliveryMethod;;
+    seletor.address = this.secondFormGroup.value.address;
+    seletor.addressNumber = this.secondFormGroup.value.addressNumber;
+    seletor.neighborhood = this.secondFormGroup.value.neighborhood;
+    seletor.nameClient = this.secondFormGroup.value.nameClient;
+    seletor.phoneNumberClient = this.secondFormGroup.value.phoneNumberClient;
+    const settings = {
+      method: 'POST',
+      headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(seletor)
+    };
+    POST('Reservation', settings).then(e => {
+      console.log(e.dataJson)
+      if(e.response.status == 201){
+        this.dialog.open(DialogSuccess, {
+          data: {
+            message: 'Reserva feita com sucesso !',
+            item: e.dataJson
+          },
+        });
+      }
+    })
   }
 }

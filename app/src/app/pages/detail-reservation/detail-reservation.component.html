@@ -1,0 +1,91 @@
+<mat-card>
+    <mat-card-title>Dados da reserva</mat-card-title>
+    <mat-card-subtitle><b>Dados do cliente:</b></mat-card-subtitle>
+    <p>
+        Cliente:
+        {{dataSource.nameClient}}
+    </p>
+    <p>
+        Número para contato:
+        {{dataSource.phoneNumberClient}}
+    </p>
+    <mat-card-subtitle><b>Dados pagamento:</b></mat-card-subtitle>
+        <p>
+            Forma de pagamento:
+            {{dataSource.tipePayment == 1 ? 'Cartão de crédito' : dataSource.tipePayment == 2 ? 'Dinheiro' : dataSource.tipePayment == 3 ? 'Pix' : ''}}
+        </p>
+        <p *ngIf="dataSource.tipePayment == 1">
+            Bandeira do cartão:
+            {{dataSource.tipePayment == 1 ? 'Cartão de crédito' : dataSource.tipePayment == 2 ? 'Dinheiro' : dataSource.tipePayment == 3 ? 'Pix' : ''}}
+        </p>
+    <mat-card-subtitle><b>Forma de entrega da reserva:</b></mat-card-subtitle>
+        <p>
+            Forma de entrega: 
+            {{dataSource.deliveryMethod == 1 ? 'Retirada no local' : dataSource.deliveryMethod == 2 ? 'Entrega em estabelecimento' : ''}}
+        </p>
+        <div *ngIf="dataSource.deliveryMethod == 2">
+            Endereço:
+            <ul>
+                <li>Rua: {{dataSource.address}}</li>
+                <li>Número: {{dataSource.addressNumber}}</li>
+                <li>Bairro: {{dataSource.aeighborhood}}</li>
+            </ul>
+        </div>
+    <mat-card-subtitle><b>Itens da reserva:</b></mat-card-subtitle>
+    <mat-card-content>
+        <table mat-table [dataSource]="dataSourceItens" class="mat-elevation-z0">
+            <!--- Note that these columns can be defined in any order.
+                    The actual rendered columns are set as a property on the row definition" -->
+        
+            <!-- Position Column -->
+            <ng-container matColumnDef="Item">
+                <th mat-header-cell *matHeaderCellDef> Item </th>
+                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                <td mat-footer-cell *matFooterCellDef> Total a pagar </td>
+            </ng-container>
+        
+            <!-- Name Column -->
+            <ng-container matColumnDef="Qt selecionada">
+                <th mat-header-cell *matHeaderCellDef> Qt selecionada </th>
+                <td mat-cell *matCellDef="let element"> {{element.amountDemanded}} </td>
+                <td mat-footer-cell *matFooterCellDef></td>
+            </ng-container>
+        
+            <!-- Weight Column -->
+            <ng-container matColumnDef="Valor Unit.">
+                <th mat-header-cell *matHeaderCellDef> Valor Unit. </th>
+                <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+                <td mat-footer-cell *matFooterCellDef></td>
+            </ng-container>
+        
+            <ng-container matColumnDef="Total">
+                <th mat-header-cell *matHeaderCellDef> Total R$ </th>
+                <td mat-cell *matCellDef="let element"> {{element.price * element.amountDemanded}} </td>
+                <td mat-footer-cell *matFooterCellDef> {{viewPriceTotal()}} </td>
+            </ng-container>
+        
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+        </table>
+    </mat-card-content>
+    <mat-card-subtitle>Status da reserva:
+        <span [ngClass]="dataSource.status == 0? 'pendente' : dataSource.status == 1? 'emOrganizacao' : dataSource.status == 2? 'entregue' : 'default'">
+            {{dataSource.status == 0? 'Pendente' : dataSource.status == 1? 'Em organização' : dataSource.status == 2? 'Entregue' : null}}
+        </span>
+    </mat-card-subtitle>
+    <mat-form-field appearance="fill">
+        <mat-label>Status da reserva</mat-label>
+        <mat-select [(value)]="dataSource.status" [formControl]="nativeSelectFormControl">
+            <mat-option *ngFor="let flag of statusReservation" [value]="flag.value" >
+                <option >{{flag.name}}</option>
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-card-actions>
+      <button mat-button style="color: #E00028" routerLink="/reservations">Voltar</button>
+      <button mat-button>Comprovante</button>
+      <button mat-button style="color: #2C922A" (click)="updateStatus()">Atualizar</button>
+    </mat-card-actions>
+  </mat-card>
+

@@ -7,6 +7,9 @@ export class ItemReservationSelector {
     
     @JsonProperty({name: 'name'})
     public name: string = '';
+
+    @JsonProperty({name: 'idMaterialOrig'})
+    public idMaterialOrig: any;
     
     @JsonProperty({name: 'pathPhoto'})
     public pathPhoto: string = '';

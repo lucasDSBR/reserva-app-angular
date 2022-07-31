@@ -1,24 +1,20 @@
 import { JsonProperty, JsonIgnore } from 'json-object-mapper';
 
-export class ReservationSelector {
-    
-    @JsonProperty({name: 'user'})
-    public user: string = '';
-    
+export class ReservationSelector {    
     @JsonProperty({name: 'itens'})
     public itens: any;
 
     @JsonProperty({name: 'status'})
-    public status: boolean = false;
+    public status: number = 0;
 
     @JsonProperty({name: 'tipePayment'})
-    public tipePayment: boolean = false;
+    public tipePayment: number = 0;
 
     @JsonProperty({name: 'flagCardPayment'})
     public flagCardPayment: any;
 
     @JsonProperty({name: 'deliveryMethod'})
-    public deliveryMethod: any;
+    public deliveryMethod: number = 0;
 
     @JsonProperty({name: 'address'})
     public address: string = '';
@@ -28,4 +24,10 @@ export class ReservationSelector {
 
     @JsonProperty({name: 'neighborhood'})
     public neighborhood: string = '';
+
+    @JsonProperty({name: 'nameClient'})
+    public nameClient: string = '';
+    
+    @JsonProperty({name: 'phoneNumberClient'})
+    public phoneNumberClient: string = '';
 }
