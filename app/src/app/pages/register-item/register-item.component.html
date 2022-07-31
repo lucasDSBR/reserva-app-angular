@@ -1,10 +1,15 @@
 <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
     <div class="content-photos">
         <mat-card class="content-photos-card">
-            <img mat-card-sm-image src="../../../assets/svg/add_a_photo.svg" fill="#3d3d3d" width="15px" class="content-photos-card-addPhoto">
+            <div>
+                <label for="arquivo" class="label-input-image">
+                    <img for="inputImage" mat-card-sm-image src="../../../assets/svg/add_a_photo.svg" fill="#3d3d3d" width="15px" class="content-photos-card-addPhoto">
+                </label>
+                <input class="input-image" type="file" name="arquivo" id="arquivo" (change)="handleFileInput($event)">
+            </div>
         </mat-card>
         <mat-card class="content-photos-card">
-            <img mat-card-sm-image src="../../../assets/svg/add.svg" width="25px" class="descriptions-butons-btn-add">
+            <img mat-card-sm-image src="" width="25px" class="descriptions-butons-btn-add">
         </mat-card>
     </div>   
     <mat-grid-list cols="2" rowHeight="2:1">

@@ -23,3 +23,15 @@ tr.mat-header-row {
     width: 30px;
     height: 30px;
 }
+mat-card{
+    margin: 10px;
+}
+.pendente {
+    color: #E00028
+}
+.emOrganizacao {
+    color: #e0e000
+}
+.entregue {
+    color: #2C922A
+}

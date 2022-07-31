@@ -24,7 +24,9 @@ import { ReviewReservationComponent } from './pages/review-reservation/review-re
 import {MatTableModule} from '@angular/material/table';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatRadioModule} from '@angular/material/radio';
-
+import { DetailReservationComponent } from './pages/detail-reservation/detail-reservation.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { CommonModule } from '@angular/common';
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,6 +36,7 @@ import {MatRadioModule} from '@angular/material/radio';
     LoginComponent,
     MainMenuComponent,
     ReviewReservationComponent,
+    DetailReservationComponent,
     
   ],
   imports: [
@@ -54,7 +57,9 @@ import {MatRadioModule} from '@angular/material/radio';
     MatSelectModule,
     MatTableModule,
     MatStepperModule,
-    MatRadioModule  
+    MatRadioModule,
+    MatProgressSpinnerModule,
+    CommonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

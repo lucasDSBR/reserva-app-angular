@@ -33,36 +33,35 @@ export class ListItemComponent implements OnInit {
     GET_ALL('Item', settings).then(e => {
       if(e.response.status == 200){
         this.arrayItens = e.dataJson
-
-        console.log(this.arrayItens)
       }
       
     })
   }
 
   addItem(item: any, amount: number){
-    if(this.itensReservation.find((element: any) => element.id == item.id)){
-      if(this.itensReservation.find((element: any) => element.id == item.id).amountDemanded == 1 && amount == -1)
-        this.itensReservation.splice(this.itensReservation.indexOf(this.itensReservation.find((element: any) => element.id == item.id)), 1);
+    if(this.itensReservation.find((element: any) => element.idMaterialOrig == item.id)){
+      if(this.itensReservation.find((element: any) => element.idMaterialOrig == item.id).amountDemanded == 1 && amount == -1)
+        this.itensReservation.splice(this.itensReservation.indexOf(this.itensReservation.find((element: any) => element.idMaterialOrig == item.id)), 1);
       else
-        this.itensReservation.find((element: any) => element.id == item.id).amountDemanded += amount;
-      console.log(this.itensReservation)
-    }else if(!this.itensReservation.find((element: any) => element.id == item.id) && amount != -1){
+        this.itensReservation.find((element: any) => element.idMaterialOrig == item.id).amountDemanded += amount;
+
+    }else if(!this.itensReservation.find((element: any) => element.idMaterialOrig == item.id) && amount != -1){
       let itemReservation = new ItemReservationSelector;
+      itemReservation.id = null;
       itemReservation.name = item.name;
       itemReservation.price = item.price;
       itemReservation.description = item.description;
       itemReservation.fee = item.fee;
       itemReservation.amountDemanded = amount;
       itemReservation.valueFee = item.valueFee;
-      itemReservation.id = item.id;
+      itemReservation.idMaterialOrig = item.id;
       this.itensReservation.push(itemReservation)
     }
   }
 
   viewQuantity(item: any) {
-    if(this.itensReservation.find((element: any) => element.id == item.id))
-      return this.itensReservation.find((element: any) => element.id == item.id).amountDemanded;
+    if(this.itensReservation.find((element: any) => element.idMaterialOrig == item.id))
+      return this.itensReservation.find((element: any) => element.idMaterialOrig == item.id).amountDemanded;
     return 0;
   }
 

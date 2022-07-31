@@ -1,17 +1,27 @@
-<mat-card class="card-menu">
-    <mat-card-content class="card-menu-content">
-        <p class="descriptions-name-title">Heineken</p>
-        <div class="descriptions">
-            <div class="descriptions-name">
-                <p class="descriptions-name-total">Total de itens: 10</p>
-                <p class="descriptions-name-total">Situação: <span>Pendente</span></p>
+<div style="display: flex; display: flex; flex-direction: column; align-items: center;">
+    <mat-spinner *ngIf="arrayItens.length == 0"></mat-spinner>
+</div>
+<div *ngFor="let item of arrayItens">
+    <mat-card class="card-menu" (click)="detailReservation(item)">
+        <mat-card-content class="card-menu-content">
+            <p class="descriptions-name-title">{{item.nameClient}}</p>
+            <div class="descriptions">
+                <div class="descriptions-name">
+                    <p class="descriptions-name-total">Total de itens: {{item.itens.length}}</p>
+                    <p class="descriptions-name-total" >Situação: 
+                        <span [ngClass]="item.status == 0? 'pendente' : item.status == 1? 'emOrganizacao' : item.status == 2? 'entregue' : 'default'">
+                            {{item.status == 0? 'Pendente' : item.status == 1? 'Em organização' : item.status == 2? 'Entregue' : null}}
+                        </span>
+                    </p>
+                </div>
+                <div class="descriptions-date">
+                    Data: {{formatDate(item.createAt)}}
+                </div>
+                <div class="descriptions-butons">
+                    <img mat-card-sm-image src="../../../assets/svg/arrow_forward.svg" width="25px" fill="#3d3d3d" class="descriptions-butons-btn-next">
+                </div>
             </div>
-            <div class="descriptions-date">
-                Data: 00/00/0000
-            </div>
-            <div class="descriptions-butons">
-                <img mat-card-sm-image src="../../../assets/svg/arrow_forward.svg" width="25px" fill="#3d3d3d" class="descriptions-butons-btn-next">
-            </div>
-        </div>
-    </mat-card-content>
-</mat-card>
+        </mat-card-content>
+    </mat-card>
+</div> 
+

@@ -1,5 +1,9 @@
-<h2>Revisar pedido</h2>
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8" *ngIf="!finalitReservation">
+<h2 style="display: flex;flex-direction: column;align-items: center; margin: 5px;">
+    {{finalitReservation == false? "Revisar pedido" : "Dados de pagamento/envio"}}
+    <img *ngIf="!finalitReservation" mat-card-sm-image src="../../../assets/svg/shopping_cart.svg" fill="#3d3d3d" width="5px" class="content-photos-svg">
+    <img *ngIf="finalitReservation" mat-card-sm-image src="../../../assets/svg/shopping_cart_checkout.svg" fill="#3d3d3d" width="5px" class="content-photos-svg">
+</h2>
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z2" *ngIf="!finalitReservation">
     <!--- Note that these columns can be defined in any order.
             The actual rendered columns are set as a property on the row definition" -->
 
@@ -7,29 +11,33 @@
     <ng-container matColumnDef="Item">
         <th mat-header-cell *matHeaderCellDef> Item </th>
         <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        <td mat-footer-cell *matFooterCellDef> Total a pagar </td>
     </ng-container>
 
     <!-- Name Column -->
     <ng-container matColumnDef="Qt selecionada">
         <th mat-header-cell *matHeaderCellDef> Qt selecionada </th>
         <td mat-cell *matCellDef="let element"> {{element.amountDemanded}} </td>
+        <td mat-footer-cell *matFooterCellDef></td>
     </ng-container>
 
     <!-- Weight Column -->
     <ng-container matColumnDef="Valor Unit.">
         <th mat-header-cell *matHeaderCellDef> Valor Unit. </th>
         <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+        <td mat-footer-cell *matFooterCellDef></td>
     </ng-container>
 
     <ng-container matColumnDef="Total">
         <th mat-header-cell *matHeaderCellDef> Total R$ </th>
         <td mat-cell *matCellDef="let element"> {{element.price * element.amountDemanded}} </td>
+        <td mat-footer-cell *matFooterCellDef> {{viewPriceTotal()}} </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
 </table>
-<h2>Total a pagar: R${{viewPriceTotal()}}</h2>
 
 <mat-stepper orientation="vertical" #stepper *ngIf="finalitReservation">
     <mat-step [stepControl]="firstFormGroup">
@@ -66,6 +74,14 @@
         <div *ngIf="secondFormGroup.value.deliveryMethod == 2">
             <h4>Informe seu endereço:</h4>
             <mat-form-field appearance="fill">
+                <mat-label>Seu nome:</mat-label>
+                <input matInput formControlName="nameClient" style="width: 100%;">
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Seu número(cell):</mat-label>
+                <input matInput formControlName="phoneNumberClient" style="width: 100%;">
+            </mat-form-field>
+            <mat-form-field appearance="fill">
                 <mat-label>Rua:</mat-label>
                 <input matInput formControlName="address" style="width: 100%;">
             </mat-form-field>
@@ -99,8 +115,8 @@
         </ul>
         <p><b>Valor total:</b>R${{viewPriceTotal()}}</p>
         <div style="display: flex;flex-direction: row;align-items: center;justify-content: center;">
-            <button mat-button style="background-color: #E00028; color: #FFFF; margin: 5px;" routerLink="/listItens">Cancelar</button>
-            <button mat-button style="background-color: #2C922A; color: #FFFF; margin: 5px;" (click)="stepper.reset()">Finalizar</button>
+            <button mat-button routerLink="/listItens" style="background-color: #E00028; color: #FFFF; margin: 5px;" routerLink="/listItens">Cancelar</button>
+            <button mat-button style="background-color: #2C922A; color: #FFFF; margin: 5px;" (click)="finalityReservation()">Finalizar</button>
         </div>
     </mat-step>
 </mat-stepper>
